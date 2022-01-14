@@ -1,0 +1,10 @@
+dto/MovieDto.class
+dto/PersonDto.class
+paging/Page.class
+dto/CountDto$CountDtoBuilder.class
+dto/LocationDto.class
+dto/CoordinatesDto.class
+dto/CountDto.class
+paging/Pageable.class
+paging/Sort$Direction.class
+paging/Sort.class

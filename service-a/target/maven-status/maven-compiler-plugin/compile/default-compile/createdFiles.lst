@@ -1,0 +1,4 @@
+com/example/soa_2/service/ClientService.class
+com/example/soa_2/SoaClientApplication.class
+com/example/soa_2/service/BusinessService.class
+com/example/soa_2/client/ClientController.class
