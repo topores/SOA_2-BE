@@ -24,11 +24,14 @@ public abstract class AbstractCrudRepository<ENTITY> {
     }
 
     public ENTITY getById(Integer id) {
-        return session.get(this.type, id);
+        return Optional.ofNullable(session.get(this.type, id))
+                .orElseThrow(() -> {
+                    throw new EntityNotFoundException();
+                });
     }
 
     public Optional<ENTITY> findById(Integer id) {
-        return Optional.ofNullable(getById(id));
+        return Optional.of(getById(id));
     }
 
     public List<ENTITY> findAll() {

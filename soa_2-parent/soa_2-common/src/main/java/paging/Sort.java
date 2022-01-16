@@ -12,7 +12,7 @@ import javax.ws.rs.QueryParam;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Sort {
-    @QueryParam("field")
+    @QueryParam("sortBy")
     private String fieldName;
     @QueryParam("direction") @DefaultValue("ASC")
     private Direction direction;
