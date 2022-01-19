@@ -41,14 +41,10 @@ public abstract class MovieMapper extends BasicEntityDtoMapper<MovieDto, Movie> 
     @AfterMapping
     public void afterMapToEntity(@MappingTarget Movie entity, MovieDto dto) {
         personRepository.findById(dto.getDirectorId())
-                        .ifPresentOrElse(entity::setDirector, () -> {
-                            throw new EntityNotFoundException();
-                        });
+                        .ifPresent(entity::setDirector);
 
         coordinatesRepository.findById(dto.getCoordinatesId())
-                             .ifPresentOrElse(entity::setCoordinates, () -> {
-                                 throw new EntityNotFoundException();
-                             });
+                             .ifPresent(entity::setCoordinates);
     }
 
     @AfterMapping

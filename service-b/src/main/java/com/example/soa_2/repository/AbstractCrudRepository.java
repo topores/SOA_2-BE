@@ -12,6 +12,8 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.String.format;
+
 public abstract class AbstractCrudRepository<ENTITY> {
 
     private final Class<ENTITY> type;
@@ -25,13 +27,13 @@ public abstract class AbstractCrudRepository<ENTITY> {
 
     public ENTITY getById(Integer id) {
         return Optional.ofNullable(session.get(this.type, id))
-                .orElseThrow(() -> {
-                    throw new EntityNotFoundException();
-                });
+                       .orElseThrow(() -> {
+                           throw new EntityNotFoundException(format("%s [id=%d] not found", type.getSimpleName(), id));
+                       });
     }
 
     public Optional<ENTITY> findById(Integer id) {
-        return Optional.of(getById(id));
+        return Optional.ofNullable(getById(id));
     }
 
     public List<ENTITY> findAll() {
@@ -50,11 +52,11 @@ public abstract class AbstractCrudRepository<ENTITY> {
             em.getTransaction().commit();
             em.clear();
             return entity;
-        } catch (Exception e) {
+        } catch (Exception ex) {
             em.getTransaction().rollback();
+            em.clear();
+            throw ex;
         }
-        em.clear();
-        return null;
     }
 
     public void deleteById(Integer id) {
@@ -70,8 +72,7 @@ public abstract class AbstractCrudRepository<ENTITY> {
     }
 
     public ENTITY update(Integer id, ENTITY update) {
-        Optional<ENTITY> persisted = findById(id);
-        if (persisted.isPresent()) {
+        if (findById(id).isPresent()) {
             em.getTransaction().begin();
             try {
                 em.merge(update);
@@ -81,9 +82,8 @@ public abstract class AbstractCrudRepository<ENTITY> {
             }
             em.clear();
             return update;
-        } else {
-            throw new EntityNotFoundException();
         }
+        return null;
     }
 
     public CriteriaQuery<Long> createCountQuery() {

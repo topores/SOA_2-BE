@@ -34,12 +34,12 @@ public interface BusinessService {
     @GET
     @Path("/movie/by-genre/{genre}")
     Page<MovieDto> findMoviesByGenre(@PathParam("genre") String genre,
-                                     @BeanParam Pageable pageable);
+                                            @BeanParam Pageable pageable);
 
     @GET
     @Path("/movie/by-director/{directorId}")
     Page<MovieDto> findMoviesByDirectorId(@PathParam("directorId") Integer id,
-                                          @BeanParam Pageable pageable);
+                                                 @BeanParam Pageable pageable);
 
     @PUT
     @Path("/movie/{id}")

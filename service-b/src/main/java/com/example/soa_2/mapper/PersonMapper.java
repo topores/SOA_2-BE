@@ -19,27 +19,28 @@ public abstract class PersonMapper extends BasicEntityDtoMapper<PersonDto, Perso
     @Inject
     private LocationRepository repository;
 
+    private final String dateFormat = "dd.MM.yyyy";
+
     @Override
-    @Mapping(source = "birthday", target = "birthday", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "birthday", target = "birthday", dateFormat = dateFormat)
     public abstract PersonDto mapToDto(Person personDto);
 
     @Override
-    @Mapping(source = "birthday", target = "birthday", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "birthday", target = "birthday", dateFormat = dateFormat)
     public abstract Person mapToEntity(PersonDto person);
 
     @Override
-    @Mapping(source = "birthday", target = "birthday", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "birthday", target = "birthday", dateFormat = dateFormat)
     public abstract List<PersonDto> mapEntitiesToDtos(List<Person> personDtoList);
 
     @Override
-    @Mapping(source = "birthday", target = "birthday", dateFormat = "dd.MM.yyyy")
+    @Mapping(source = "birthday", target = "birthday", dateFormat = dateFormat)
     public abstract List<Person> mapDtosToEntities(List<PersonDto> people);
 
     @AfterMapping
     public void afterMapToEntity(@MappingTarget Person entity, PersonDto dto) {
         repository.findById(dto.getLocationId())
-                  .ifPresentOrElse(entity::setLocation, () -> {throw new EntityNotFoundException();}
-        );
+                  .ifPresent(entity::setLocation);
     }
 
     @AfterMapping

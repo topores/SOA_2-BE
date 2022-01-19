@@ -5,8 +5,6 @@ import com.example.soa_2.model.MovieGenre;
 import com.example.soa_2.model.Person;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
@@ -16,9 +14,6 @@ public class MovieRepository extends AbstractCrudRepository<Movie> {
     public MovieRepository() {
         super(Movie.class);
     }
-
-    @Inject
-    private CoordinatesRepository coordinatesRepository;
 
     public Long countMoviesByOscarsLessThen(long amount) {
         CriteriaQuery<Long> countQuery = createCountQuery();
@@ -52,14 +47,5 @@ public class MovieRepository extends AbstractCrudRepository<Movie> {
 
         criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("director"), session.createQuery(personCriteriaQuery).getSingleResult()));
         return session.createQuery(criteriaQuery).getResultList();
-    }
-
-    @Override
-    public Movie create(Movie movie) {
-        if (coordinatesRepository.findById(movie.getCoordinates().getId()).isPresent()) {
-            return super.create(movie);
-        } else {
-            throw new EntityNotFoundException();
-        }
     }
 }

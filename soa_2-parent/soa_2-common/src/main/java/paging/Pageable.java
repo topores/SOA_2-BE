@@ -24,5 +24,8 @@ public class Pageable implements Serializable {
     @BeanParam
     private Sort sort;
 
-    public static Pageable DEFAULT = new Pageable(0, Integer.MAX_VALUE, Sort.DEFAULT);
+    @BeanParam
+    private Filter filter;
+
+    public static Pageable DEFAULT = new Pageable(0, Integer.MAX_VALUE, Sort.DEFAULT, Filter.DEFAULT);
 }

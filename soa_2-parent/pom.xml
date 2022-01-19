@@ -8,6 +8,7 @@
     <artifactId>soa_2-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0</version>
+
     <modules>
         <module>soa_2-common</module>
     </modules>

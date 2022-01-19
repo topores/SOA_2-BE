@@ -1,6 +1,8 @@
 package com.example.soa_2.controller;
 
 import com.example.soa_2.service.AbstractCrudService;
+import exception.FilterIsNotSupportedException;
+import exception.UnsupportedFilterOperation;
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import paging.Page;
 import paging.Pageable;
