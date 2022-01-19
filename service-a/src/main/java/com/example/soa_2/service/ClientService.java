@@ -34,16 +34,17 @@ public class ClientService {
 
     public List<MovieDto> humiliate(String genre) {
         return businessService.findMoviesByGenre(genre, Pageable.DEFAULT)
-                              .getContent()
-                              .stream()
-                              .map(MovieDto::getDirectorId)
-                              .flatMap(directorId -> businessService.findMoviesByDirectorId(directorId, Pageable.DEFAULT)
-                                                                    .getContent()
-                                                                    .stream()
-                                                                    .map(m -> {
-                                                                        m.setOscarsCount(m.getOscarsCount() != 0 ? 0 : m.getOscarsCount());
-                                                                        return businessService.updateMovie(m.getId(), m);
-                                                                    })
-                              ).collect(Collectors.toList());
+                .getContent()
+                .stream()
+                .flatMap(movie ->
+                        businessService.findMoviesByDirectorId(movie.getDirectorId(), Pageable.DEFAULT)
+                                .getContent()
+                                .stream()
+                                .map(m -> {
+                                    m.setOscarsCount(m.getOscarsCount() != 0 ? 0 : m.getOscarsCount());
+                                    return businessService.updateMovie(m.getId(), m);
+                                })
+                ).distinct()
+                .collect(Collectors.toList());
     }
 }

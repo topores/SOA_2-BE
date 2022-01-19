@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-01-13T02:55:58+0300",
+    date = "2022-01-19T15:57:06+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Azul Systems, Inc.)"
 )
 @ApplicationScoped
@@ -28,6 +28,7 @@ public class PersonMapperImpl extends PersonMapper {
         if ( personDto.getBirthday() != null ) {
             personDto1.setBirthday( new SimpleDateFormat( "dd.MM.yyyy" ).format( personDto.getBirthday() ) );
         }
+        personDto1.setId( personDto.getId() );
         personDto1.setName( personDto.getName() );
         personDto1.setWeight( personDto.getWeight() );
         personDto1.setPassportId( personDto.getPassportId() );
@@ -53,6 +54,7 @@ public class PersonMapperImpl extends PersonMapper {
         catch ( ParseException e ) {
             throw new RuntimeException( e );
         }
+        person1.setId( person.getId() );
         person1.setName( person.getName() );
         person1.setWeight( person.getWeight() );
         person1.setPassportId( person.getPassportId() );

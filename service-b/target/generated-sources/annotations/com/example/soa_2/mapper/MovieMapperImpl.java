@@ -11,7 +11,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-01-13T02:55:58+0300",
+    date = "2022-01-19T15:57:06+0300",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.13 (Azul Systems, Inc.)"
 )
 @ApplicationScoped
